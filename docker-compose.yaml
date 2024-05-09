@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DATABASE_DBNAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_HOST: ${DATABASE_HOST}
+    ports:
+      - 5432:5432
+    restart: always
+
+  app:
+    build: .
+    #command: ["/app/wait-for-postgres.sh", "db", "5432", "--", "python", "Task_1.py"]
+    volumes:
+      - ./task1_log.log:/app/task1_log.log
+      - ./:/app
+    ports:
+      - 1444:1444
+    depends_on:
+      - db
+
+
+
+
+
+
