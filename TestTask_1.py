@@ -4,7 +4,7 @@ import Task_1
 class TestTask_1(unittest.TestCase):
 
     def setUp(self):
-        self.testBase = Task_1.Database("Test_Task_1","postgres","2005","127.0.0.1","5432")
+        self.testBase = Task_1.Database('TEST_DATABASE_NAME','DATABASE_USER','DATABASE_PASSWORD','TEST_DATADASE_HOST','DATABASE_PORT')
 
 
     def test_connect(self):
@@ -13,12 +13,12 @@ class TestTask_1(unittest.TestCase):
 
     def test_query_check_xml(self):
         self.testBase.connectDatabase()
-        self.testBase.loadData(r"D:\Coding\Innowise internship\Projects\task_1\Data\testData\rooms.json")
-        self.testBase.loadData(r"D:\Coding\Innowise internship\Projects\task_1\Data\testData\students.json")
-        self.testBase.queryProccessing(r"D:\Coding\Innowise internship\Projects\task_1\Query_1.sql","JSON")
-        with open(r"D:\Coding\Innowise internship\Projects\task_1\Query_1_result.json",'r') as resF:
+        self.testBase.loadData(r'FILES_ROOMS')
+        self.testBase.loadData(r'FILES_STUDENTS')
+        self.testBase.queryProccessing(r'QUERY_QUERY_FILE',"JSON")
+        with open(r'QUERY_RESULT','r') as resF:
             data1 = json.load(resF)
-        with open(r"D:\Coding\Innowise internship\Projects\task_1\expected_result_q1.json",'r') as expRes:
+        with open(r'QUERY_EXPECTED_RESULT','r') as expRes:
             data2 = json.load(expRes)
         self.assertEqual(data1,data2)
 
