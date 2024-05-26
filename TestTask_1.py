@@ -1,6 +1,9 @@
 import json
 import unittest
 import Task_1
+from dotenv import load_dotenv
+
+load_dotenv()
 class TestTask_1(unittest.TestCase):
 
     def setUp(self):
