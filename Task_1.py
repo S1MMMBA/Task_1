@@ -4,7 +4,6 @@ import xml.etree.ElementTree as ET
 import os
 import logging
 import time
-from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 from enum_Type import outputFormat
 from dotenv import load_dotenv

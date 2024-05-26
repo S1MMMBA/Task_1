@@ -13,7 +13,6 @@ services:
 
   app:
     build: .
-    #command: ["/app/wait-for-postgres.sh", "db", "5432", "--", "python", "Task_1.py"]
     volumes:
       - ./task1_log.log:/app/task1_log.log
       - ./:/app
