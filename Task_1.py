@@ -46,7 +46,7 @@ class Database:
     cursor = self.conn.cursor()
     tableName = os.path.basename(fileJSON)
     tableNameShort = os.path.splitext(os.path.basename(fileJSON))[0]
-    if tableName == "rooms.json":
+    if "room" in tableName:
       try:
          cursor.execute(f" CREATE TABLE IF NOT EXISTS Rooms  ( 	 id INTEGER PRIMARY KEY, 	 name VARCHAR(15)  )")
          for item in data:
@@ -56,7 +56,7 @@ class Database:
       except psycopg2.errors.UniqueViolation:
         logging.warning( "Table rooms has been already filled")
 
-    elif tableName == "students.json":
+    elif "student" in tableName:
       try:
          cursor.execute(f"CREATE TABLE IF NOT EXISTS Students  ( 	 birthday DATE, 	 id INTEGER PRIMARY KEY, 	 name VARCHAR(30), 	 room INTEGER, 	 sex VARCHAR(1), 	 FOREIGN KEY (id) REFERENCES Students(id)  )")
          for item in data:
@@ -106,6 +106,15 @@ class Database:
 
 base = Database()
 base.connectDatabase()
-base.loadData(os.getenv('FILES_ROOMS'))
-base.loadData(os.getenv('FILES_STUDENTS'))
-base.queryProccessing(os.getenv('QUERY_QUERY_FILE'),os.getenv('QUERY_FORMAT'))
+rooms_path = input("enter path to rooms.json")
+students_path = input("enter path to students.json")
+query_path = input("enter path to file with query")
+format = input("enter output format(JSON or XML)")
+base.loadData(rooms_path)
+base.loadData(students_path)
+base.queryProccessing(query_path,format)
+
+# оставил закоменченные строки если вдруг кто-нибудь захочет docker 
+#base.loadData(os.getenv('FILES_ROOMS'))
+#base.loadData(os.getenv('FILES_STUDENTS'))
+#base.queryProccessing(os.getenv('QUERY_QUERY_FILE'),os.getenv('QUERY_FORMAT'))
